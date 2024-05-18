@@ -3,7 +3,7 @@
 # Author: Natalia Brys, Alicja Jedynska
 # Description: LB2 
 # Group: 7
-# Usage: backupProgram.sh
+# Usage: Backup Program
 #################################################
  
 while true
