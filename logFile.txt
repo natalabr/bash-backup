@@ -1,0 +1,5 @@
+2024-05-20 20:42:48 >>>  Enter the source path to backup:
+2024-05-20 20:43:34 >>>  Enter the source path to backup:
+2024-05-20 20:43:43 >>>  Enter the source path to backup:
+2024-05-20 20:45:03 >>>  Enter the source path to backup:
+2024-05-20 20:45:16 >>>  Enter the source path to backup:

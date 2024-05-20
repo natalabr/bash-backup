@@ -58,6 +58,12 @@ do
         echo "Enter the destination path for the backup:"
         read -r dest_dir
 
+        if [ "$source_dir" = "$dest_dir" ]; then
+        		tput setaf 1; echo "Source and destination paths cannot be the same. Returning to the menu..."; tput sgr0
+        		sleep 1
+            continue
+        fi
+
         if [ ! -d "$dest_dir" ]; then
             mkdir -p "$dest_dir"
 
