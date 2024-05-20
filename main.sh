@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###################################
-# Author: Alicja Jedynska
+# Author: Alicja Jedynska, Natalia Brys
 # Version: 1.0
 # Usage: backupProgram.sh
 # Date: 24.04.2024
