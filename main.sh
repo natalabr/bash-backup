@@ -114,7 +114,7 @@ do
 
         if [ "$delete_backup_num" = 1 ] || [ -n "$dest_dir" ]; then
 
-            tput setaf 1; echo "Choose a backup from the list to remove:"; tput sgr0
+            echo "Choose a backup from the list to remove:"; 
             ls -lh "$dest_dir"
             read -r rem_backup
 
@@ -234,8 +234,7 @@ do
 
         if [ "$search_num" = "?" ]; then
             echo "(1) Search by a term in a single backup. Pay attention for correct destination path."
-            echo "(2) Search by a term in multiple backups. Pay attention for correct destination path"
-            echo "(3) Return to menu."
+            echo "(2) Search by a term in multiple backups. Pay attention for correct destination path"s
             tput setaf 3; echo "[.] Return to previous menu"; tput sgr0
             read -r subhelp_num
             if [ "$subhelp_num" = "." ]; then
