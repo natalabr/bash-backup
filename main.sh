@@ -192,14 +192,22 @@ do
         read -r search_num
 
         if [ "$search_num" = 1 ]; then
+            echo "Choose folder that contains backup files"
+            read -r backup_folder
+
+            echo "Available backup files:"
+            for backup_file in $backup_folder/*.gz; do
+                echo "--> $backup_file"
+            done 
+
             echo "Choose a backup:"
             read -r search_backup
             echo "Enter a term you want to search:"
             read -r search_term
 
+            echo "Files found:"
             tar -tf "$search_backup" | grep -i "$search_term" | while read -r line
             do
-                echo "File found:"
                 tput setaf 2; echo "$line"; tput sgr0
                 sleep 1
             done
