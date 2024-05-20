@@ -5,7 +5,7 @@
 # Version: 1.0
 # Usage: backupProgram.sh
 # Date: 24.04.2024
-###################################
+###############
 
 while true
 do
