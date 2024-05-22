@@ -1,11 +1,11 @@
 #!/bin/bash
 
-###################################
+########################################
 # Author: Alicja Jedynska, Natalia Brys
-# Version: 1.0
-# Usage: backupProgram.sh
-# Date: 24.04.2024
-###################################
+# Version: 2.0
+# Usage: backupProgram2.sh
+# Date: 21.05.2024
+########################################
 
 while true
 do
@@ -13,7 +13,7 @@ do
     echo " [1] Create a backup"
     echo " [2] Delete a backup"
     echo " [3] List backups"
-    echo " [4] Search a backup"
+    echo " [4] Search in backup"
     echo " [5] Open Log File"
     echo " [6] Delete Log File"
     echo " [.] Exit"
@@ -58,12 +58,6 @@ do
         echo "Enter the destination path for the backup:"
         read -r dest_dir
 
-        if [ "$source_dir" = "$dest_dir" ]; then
-        		tput setaf 1; echo "Source and destination paths cannot be the same. Returning to the menu..."; tput sgr0
-        		sleep 1
-            continue
-        fi
-
         if [ ! -d "$dest_dir" ]; then
             mkdir -p "$dest_dir"
 
@@ -73,6 +67,13 @@ do
             continue
             fi
 
+        fi
+
+        if [ "$source_dir" = "$dest_dir" ]; then
+        	tput setaf 1; echo "Source and destination paths cannot be the same."; tput sgr0
+            echo "Returning to the menu..."
+        	sleep 1
+            continue
         fi
 
         echo "Creating backup of $source_dir to $dest_dir ..."
@@ -114,7 +115,7 @@ do
 
         if [ "$delete_backup_num" = 1 ] || [ -n "$dest_dir" ]; then
 
-            echo "Choose a backup from the list to remove:"; 
+            tput setaf 1; echo "Choose a backup from the list to remove:"; tput sgr0
             ls -lh "$dest_dir"
             read -r rem_backup
 
@@ -125,10 +126,12 @@ do
 
             if [ $? = 0 ]; then
                 tput setaf 2; echo "Backup deleted successfully"; tput sgr0
+                echo "Returning to menu ..."
                 echo ""
                 sleep 1
             else
                 tput setaf 1; echo "Backup deletion failed"; tput sgr0
+                echo "Returning to menu ..."
                 echo ""
                 sleep 1
             fi
@@ -182,9 +185,8 @@ do
 
         while true
         do
-        tput setaf 3; echo "<<<<<<<<<<Search for backups>>>>>>>>>>"; tput sgr0
+        tput setaf 3; echo "<<<<<<<<<<Search in a backup>>>>>>>>>>"; tput sgr0
         echo " [1] Search file in single backup"
-        echo " [2] Search file in multiple backups"
         echo " [.] Return"
         echo " [?] Help"
         tput setaf 3; echo "<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>"; tput sgr0
@@ -192,16 +194,17 @@ do
         read -r search_num
 
         if [ "$search_num" = 1 ]; then
-            echo "Choose folder that contains backup files"
+            echo "Choose folder that contains backup files:"
             read -r backup_folder
 
             echo "Available backup files:"
-            for backup_file in $backup_folder/*.gz; do
+            for backup_file in "$backup_folder"/*.gz; do
                 echo "--> $backup_file"
-            done 
+            done
 
             echo "Choose a backup:"
             read -r search_backup
+
             echo "Enter a term you want to search:"
             read -r search_term
 
@@ -209,28 +212,9 @@ do
             tar -tf "$search_backup" | grep -i "$search_term" | while read -r line
             do
                 tput setaf 2; echo "$line"; tput sgr0
+                echo "Returning to menu ..."
                 sleep 1
             done
-
-        fi
-
-        if [ "$search_num" = 2 ]; then
-            echo "Choose a backup:"
-            read -r search_backup
-            echo "Enter a term you want to search:"
-            read -r search_term
-
-            ls $search_backup | while read -r file
-            do
-                tar -tf "$file" | grep -i "$search_term" | while read -r line
-                do
-                    echo "File found in backup $file:"
-                    tput setaf 2; echo "$line"; tput sgr0
-                    sleep 1
-                done
-            done
-            
-            
 
         fi
 
@@ -241,9 +225,10 @@ do
         fi
 
         if [ "$search_num" = "?" ]; then
-            echo "(1) Search by a term in a single backup. Pay attention for correct destination path."
-            echo "(2) Search by a term in multiple backups. Pay attention for correct destination path"s
-            tput setaf 3; echo "[.] Return to previous menu"; tput sgr0
+            echo "------------------------------------------------------------------------------------"
+            echo " (1) Search by a term in a single backup. Pay attention for correct destination path."
+            tput setaf 3; echo " [.] Return to previous menu"; tput sgr0
+            echo "------------------------------------------------------------------------------------"
             read -r subhelp_num
             if [ "$subhelp_num" = "." ]; then
                 echo "Returning to previous menu ..."
@@ -367,8 +352,13 @@ do
             echo "|>----------------------------------------------------------------------------<|"
             echo "| (3) Lists backups using a destination path.                                  |"
             echo "|>----------------------------------------------------------------------------<|"
-            echo "| (4) Searches for backups, put in a destination path and a search term.       |"
-            echo "|     Option between searching in a specific backup or multiple backups.       |"
+            echo "| (4) Searches for files in a backup.                                          |"
+            echo "|     Put in a destination path and a valid search term.                       |"
+            echo "|>----------------------------------------------------------------------------<|"
+            echo "| (5) Opens the current Log File inside the executing directory in terminal    |"
+            echo "|>----------------------------------------------------------------------------<|"
+            echo "| (6) Deletes either newly created Log File or old Log File in the executing   |"
+            echo "|     directory.                                                               |"
             echo "|>----------------------------------------------------------------------------<|"
             echo "| (.) Exits the program with user input.                                       |"
             echo "|>----------------------------------------------------------------------------<|"
