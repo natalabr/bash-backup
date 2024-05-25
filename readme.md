@@ -1,3 +1,3 @@
 # Bash backup
 
-Functions: creating backups, making a list of backups, searching for files and backups, removing backups, creating log-file
+Functions: creating backups, making a list of backups, searching for files in backups, removing backups, creating and removing a log-file
